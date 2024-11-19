@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VS Industries</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: #555;
+            color: #f4f4f4;
+        }
+
+        .content {
+            padding: 20px;
+            display: none;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
+        }
+
+        .active {
+            display: block !important;
+            opacity: 1;
+        }
+
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .product-card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s, transform 0.3s;
+            background-color: white;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: modalShow 0.5s;
+        }
+
+        @keyframes modalShow {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        section {
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .modal-content {
+                width: 95%;
+            }
+
+            nav {
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                margin: 5px 0;
+            }
+
+            .product-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('product')">Product</a>
+        <a href="#" onclick="showPage('contact')">Contact</a>
+    </nav>
+
+<!-- Home Page -->
+<div class="content active" id="home">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <!-- Add your logo image source -->
+        <img src="logo.jpeg" alt="VS Industries Logo" style="width: 150px; height: auto;">
+    </div>
+    <h1>Welcome to VS Industries</h1>
+    <p>Welcome to VS Industries, your one-stop solution for quality products. We are dedicated to providing excellent customer service and a range of superior industrial goods to meet all your needs.</p>
+
+    <!-- About Us Section -->
+    <section id="about-us">
+        <h2>About Us</h2>
+        <p>VS Industries has been a trusted name in the industrial goods sector for over a decade. We pride ourselves on providing high-quality products, innovative solutions, and exceptional customer service. Our dedicated team works tirelessly to ensure customer satisfaction, making us a preferred partner in the industry.</p>
+    </section>
+
+    <!-- Our Mission Section -->
+    <section id="mission">
+        <h2>Our Mission</h2>
+        <p>Our mission is to provide top-notch products and services that meet and exceed customer expectations. We strive to be a leader in the industry by continually improving our offerings and adopting the latest technologies to enhance efficiency and effectiveness.</p>
+    </section>
+
+    <!-- Core Values Section -->
+    <section id="core-values">
+        <h2>Our Core Values</h2>
+        <ul>
+            <li><strong>Quality:</strong> Delivering products of the highest standard to meet customer needs.</li>
+            <li><strong>Integrity:</strong> Conducting our business with honesty and transparency.</li>
+            <li><strong>Innovation:</strong> Constantly seeking new and better ways to serve our customers.</li>
+            <li><strong>Customer Focus:</strong> Placing customer satisfaction at the heart of everything we do.</li>
+        </ul>
+    </section>
+</div>
+
+
+    <!-- Product Page -->
+    <div class="content" id="product">
+        <h1>Our Products</h1>
+        <div class="product-grid">
+            <!-- Generate product cards dynamically -->
+            <script>
+                const products = [
+                    { id: 1, img: 'light and heavy.jpg', title: 'Flexible Hose Light', modalId: 1 },
+                    { id: 2, img: 'outlet.jpg', title: 'Washing Machine Outlet', modalId: 2 },
+                    { id: 3, img: 'light and heavy.jpg', title: 'Flexible Hose Heavy', modalId: 1 },
+                    { id: 4, img: 'inlet.jpg', title: 'Washing Machine Inlet', modalId: 4 }
+                ];
+                document.write(
+                    products.map(product => `
+                        <div class="product-card" data-product="${product.id}">
+                            <img src="${product.img}" alt="${product.title}">
+                            <div class="product-title">${product.title}</div>
+                            <button onclick="openModal(${product.modalId})">View Details</button>
+                        </div>
+                    `).join('')
+                );
+            </script>
+        </div>
+    </div>
+
+<!-- Contact Page -->
+<div class="content" id="contact">
+
+    <!-- Contact Form -->
+    <form id="contactForm" action="send_mail.php" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+        
+        <label for="subject">Subject:</label><br>
+        <input type="text" id="subject" name="subject" required><br><br>
+        
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" required></textarea><br><br>
+        
+        <input type="submit" value="Send">
+    </form>
+</div>
+
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal" aria-hidden="true" role="dialog">
+        <div class="modal-content">
+            <span class="close" aria-label="Close" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.content');
+            pages.forEach(page => {
+                page.classList.remove('active');
+                page.style.opacity = 0;
+            });
+            const selectedPage = document.getElementById(pageId);
+            if (selectedPage) {
+                setTimeout(() => {
+                    selectedPage.classList.add('active');
+                    selectedPage.style.opacity = 1;
+                }, 100);
+            }
+        }
+
+        function openModal(productId) {
+            const modal = document.getElementById('productModal');
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = '';
+            const productDetails = {
+                1: `
+                    <h2>Flexible Hose Light Details</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Weight (Gms)</th>
+                                <th>Size</th>
+                                <th>PCS</th>
+                                <th>Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>52</td><td>32mm</td><td>300</td><td>8.32</td></tr>
+                            <tr><td>58</td><td>32mm</td><td>300</td><td>10.24</td></tr>
+                            <tr><td>70</td><td>32mm</td><td>300</td><td>10.09</td></tr>
+                            <tr><td>72</td><td>32mm</td><td>300</td><td>10.35</td></tr>
+                            <tr><td>76</td><td>32mm</td><td>300</td><td>10.75</td></tr>
+                        </tbody>
+                    </table>`,
+                2: `
+                    <h2>Washing Machine Outlet Details</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Size (Mtr)</th>
+                                <th>Weight (Gms)</th>
+                                <th>PCS</th>
+                                <th>Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>100</td><td>150</td><td>24</td></tr>
+                            <tr><td>2</td><td>140</td><td>100</td><td>33</td></tr>
+                            <tr><td>3</td><td>200</td><td>80</td><td>44</td></tr>
+                            <tr><td>4</td><td>290</td><td>50</td><td>60</td></tr>
+                            <tr><td>5</td><td>350</td><td>40</td><td>72</td></tr>
+                        </tbody>
+                    </table>`,
+                4: `
+                    <h2>Washing Machine Inlet Details</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Size (Mtr)</th>
+                                <th>Weight (Gms)</th>
+                                <th>PCS</th>
+                                <th>Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1.5</td><td>50</td><td>300</td><td>17</td></tr>
+                            <tr><td>2</td><td>80</td><td>200</td><td>23</td></tr>
+                            <tr><td>3</td><td>100</td><td>150</td><td>27</td></tr>
+                            <tr><td>4</td><td>150</td><td>80</td><td>36</td></tr>
+                            <tr><td>5</td><td>200</td><td>75</td><td>49</td></tr>
+                        </tbody>
+                    </table>`
+            };
+            modalContent.innerHTML = productDetails[productId] || '<p>Product details not available.</p>';
+            modal.style.display = 'block';
+            modal.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('productModal');
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+
+</html>
