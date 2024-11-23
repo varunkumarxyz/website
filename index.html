@@ -4,50 +4,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VS Industries</title>
+    <title>Sanitaryware Products</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+        /* General Reset */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
             color: #333;
-            line-height: 1.6;
         }
 
-        nav {
-            background-color: #333;
-            padding: 10px;
+        /* Navigation Bar Styles */
+        .navbar {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        nav a {
-            color: white;
-            margin: 0 15px;
+        .navbar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-logo img {
+            width: 120px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar-links a {
             text-decoration: none;
-            padding: 10px 15px;
-            transition: background-color 0.3s, color 0.3s;
-            border-radius: 5px;
-            font-weight: bold;
+            color: #333;
+            font-weight: 500;
         }
 
-        nav a:hover {
-            background-color: #555;
-            color: #f4f4f4;
+        .navbar-links a:hover {
+            color: #007bff;
         }
 
-        .content {
-            padding: 20px;
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
             display: none;
-            transition: opacity 0.5s ease-in-out;
-            opacity: 0;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
         }
 
-        .active {
-            display: block !important;
-            opacity: 1;
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            white-space: nowrap;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f4f4f4;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            width: 200px;
+        }
+
+        .search-bar button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Product Section */
+        .product-section {
+            padding: 20px;
         }
 
         .product-grid {
@@ -58,315 +131,304 @@
         }
 
         .product-card {
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 10px;
-            padding: 15px;
+            width: 220px;
             text-align: center;
-            width: 250px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s, transform 0.3s;
-            background-color: white;
-        }
-
-        .product-card:hover {
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            transform: translateY(-5px);
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background: white;
         }
 
         .product-card img {
             width: 100%;
             height: auto;
-            border-radius: 5px;
+            margin-bottom: 10px;
             cursor: pointer;
         }
 
         .product-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            margin-top: 10px;
         }
 
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
             z-index: 1;
-            padding-top: 60px;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.5);
         }
 
         .modal-content {
-            background-color: #fff;
-            margin: auto;
+            background-color: white;
+            margin: 5% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 90%;
             max-width: 600px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            animation: modalShow 0.5s;
         }
 
-        @keyframes modalShow {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
+        .modal-header {
+            font-size: 20px;
             font-weight: bold;
-            cursor: pointer;
+            margin-bottom: 10px;
         }
 
-        .close:hover {
-            color: black;
+        .modal-description {
+            margin-bottom: 20px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
         }
 
-        th, td {
-            padding: 12px;
-            border: 1px solid #ccc;
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 10px;
             text-align: left;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #f4f4f4;
         }
 
-        section {
-            margin-top: 20px;
+        .close {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
         }
 
-        @media (max-width: 600px) {
-            .modal-content {
-                width: 95%;
-            }
-
-            nav {
-                flex-wrap: wrap;
-            }
-
-            nav a {
-                margin: 5px 0;
-            }
-
-            .product-card {
-                width: 100%;
-                max-width: 300px;
-            }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
-    <nav>
-        <a href="#" onclick="showPage('home')">Home</a>
-        <a href="#" onclick="showPage('product')">Product</a>
-        <a href="#" onclick="showPage('contact')">Contact</a>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <div class="navbar-logo">
+                <img src="logo.jpeg" alt="WaterTEC Logo">
+            </div>
+            <div class="navbar-links">
+                <div class="dropdown">
+                    <a href="#">Sanitaryware ▼</a>
+                    <div class="dropdown-menu">
+                        <a onclick="showAllProducts()">Show All</a>
+                        <a onclick="filterByCategory('VS')">VS Category</a>
+                        <a onclick="filterByCategory('Aadeshwar')">Aadeshwar Category</a>
+                    </div>
+                </div>
+                <a href="#">Home</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+        <div class="navbar-right">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search Products">
+                <button onclick="searchProduct()">Search</button>
+            </div>
+        </div>
     </nav>
 
-<!-- Home Page -->
-<div class="content active" id="home">
-    <div style="text-align: center; margin-bottom: 20px;">
-        <!-- Add your logo image source -->
-        <img src="logo.jpeg" alt="VS Industries Logo" style="width: 150px; height: auto;">
-    </div>
-    <h1>Welcome to VS Industries</h1>
-    <p>Welcome to VS Industries, your one-stop solution for quality products. We are dedicated to providing excellent customer service and a range of superior industrial goods to meet all your needs.</p>
-
-    <!-- About Us Section -->
-    <section id="about-us">
-        <h2>About Us</h2>
-        <p>VS Industries has been a trusted name in the industrial goods sector for over a decade. We pride ourselves on providing high-quality products, innovative solutions, and exceptional customer service. Our dedicated team works tirelessly to ensure customer satisfaction, making us a preferred partner in the industry.</p>
-    </section>
-
-    <!-- Our Mission Section -->
-    <section id="mission">
-        <h2>Our Mission</h2>
-        <p>Our mission is to provide top-notch products and services that meet and exceed customer expectations. We strive to be a leader in the industry by continually improving our offerings and adopting the latest technologies to enhance efficiency and effectiveness.</p>
-    </section>
-
-    <!-- Core Values Section -->
-    <section id="core-values">
-        <h2>Our Core Values</h2>
-        <ul>
-            <li><strong>Quality:</strong> Delivering products of the highest standard to meet customer needs.</li>
-            <li><strong>Integrity:</strong> Conducting our business with honesty and transparency.</li>
-            <li><strong>Innovation:</strong> Constantly seeking new and better ways to serve our customers.</li>
-            <li><strong>Customer Focus:</strong> Placing customer satisfaction at the heart of everything we do.</li>
-        </ul>
-    </section>
-</div>
-
-
-    <!-- Product Page -->
-    <div class="content" id="product">
-        <h1>Our Products</h1>
-        <div class="product-grid">
-            <!-- Generate product cards dynamically -->
-            <script>
-                const products = [
-                    { id: 1, img: 'light and heavy.jpg', title: 'Flexible Hose Light', modalId: 1 },
-                    { id: 2, img: 'outlet.jpg', title: 'Washing Machine Outlet', modalId: 2 },
-                    { id: 3, img: 'light and heavy.jpg', title: 'Flexible Hose Heavy', modalId: 1 },
-                    { id: 4, img: 'inlet.jpg', title: 'Washing Machine Inlet', modalId: 4 }
-                ];
-                document.write(
-                    products.map(product => `
-                        <div class="product-card" data-product="${product.id}">
-                            <img src="${product.img}" alt="${product.title}">
-                            <div class="product-title">${product.title}</div>
-                            <button onclick="openModal(${product.modalId})">View Details</button>
-                        </div>
-                    `).join('')
-                );
-            </script>
-        </div>
+    <!-- Product Section -->
+    <div class="product-section">
+        <h2>Sanitaryware Products</h2>
+        <div class="product-grid" id="productGrid"></div>
     </div>
 
-<!-- Contact Page -->
-<div class="content" id="contact">
-
-    <!-- Contact Form -->
-    <form id="contactForm" action="send_mail.php" method="POST">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
-        
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
-        
-        <label for="subject">Subject:</label><br>
-        <input type="text" id="subject" name="subject" required><br><br>
-        
-        <label for="message">Message:</label><br>
-        <textarea id="message" name="message" required></textarea><br><br>
-        
-        <input type="submit" value="Send">
-    </form>
-</div>
-
-
-    <!-- Product Modal -->
-    <div id="productModal" class="modal" aria-hidden="true" role="dialog">
+    <!-- Modal -->
+    <div id="productModal" class="modal">
         <div class="modal-content">
-            <span class="close" aria-label="Close" onclick="closeModal()">&times;</span>
-            <div id="modalContent"></div>
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalHeader" class="modal-header"></div>
+            <div id="modalDescription" class="modal-description"></div>
+            <table id="modalTable">
+                <thead>
+                    <tr>
+                        <th>Size</th>
+                        <th>Rate</th>
+                        <th>Pieces</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
 
     <script>
-        function showPage(pageId) {
-            const pages = document.querySelectorAll('.content');
-            pages.forEach(page => {
-                page.classList.remove('active');
-                page.style.opacity = 0;
-            });
-            const selectedPage = document.getElementById(pageId);
-            if (selectedPage) {
-                setTimeout(() => {
-                    selectedPage.classList.add('active');
-                    selectedPage.style.opacity = 1;
-                }, 100);
+        const products = {
+            "Light Hose": {
+                title: "Light Hose",
+                category: "VS",
+                image: "light and heavy.jpg",
+                description: "A lightweight and durable hose for everyday use.",
+                features: "Flexible, long-lasting, and easy to use.",
+                table: [
+                    { size: "1m", rate: "₹10", pcs: "100" },
+                    { size: "2m", rate: "₹20", pcs: "80" },
+                ],
+            },
+            "Heavy Hose": {
+                title: "Heavy Hose",
+                category: "VS",
+                image: "light and heavy.jpg",
+                description: "A heavy-duty hose suitable for industrial use.",
+                features: "High strength, durable, and weather-resistant.",
+                table: [
+                    { size: "1m", rate: "₹15", pcs: "60" },
+                    { size: "3m", rate: "₹35", pcs: "40" },
+                ],
+            },
+            "Outlet Hose": {
+                title: "Outlet Hose",
+                category: "VS",
+                image: "outlet.jpg",
+                description: "A lightweight and durable hose for everyday use.",
+                features: "Flexible, long-lasting, and easy to use.",
+                table: [
+                    { size: "1m", rate: "₹10", pcs: "100" },
+                    { size: "2m", rate: "₹20", pcs: "80" },
+                ],
+            },
+            "inlet Hose": {
+                title: "Inlet Hose",
+                category: "VS",
+                image: "inlet.jpg",
+                description: "A lightweight and durable hose for everyday use.",
+                features: "Flexible, long-lasting, and easy to use.",
+                table: [
+                    { size: "1m", rate: "₹10", pcs: "100" },
+                    { size: "2m", rate: "₹20", pcs: "80" },
+                ],
+            },
+            "PVC Connection Pipe": {
+                title: "PVC Connection Pipe",
+                category: "Aadeshwar",
+                image: "pvc_connection.png",
+                description: "Strong PVC pipe for reliable connections.",
+                features: "Durable, lightweight, and affordable.",
+                table: [
+                    { size: "1m", rate: "₹30", pcs: "100" },
+                    { size: "2m", rate: "₹60", pcs: "80" },
+                ],
+            },
+            "PVC Shower Tube ": {
+                title: "PVC Shower Tube ",
+                category: "Aadeshwar",
+                image: "pvc_shower.jpg",
+                description: "Strong PVC pipe for reliable connections.",
+                features: "Durable, lightweight, and affordable.",
+                table: [
+                    { size: "1m", rate: "₹30", pcs: "100" },
+                    { size: "2m", rate: "₹60", pcs: "80" },
+                ],
+            },
+            "Automatic Inlet": {
+                title: "Automatic Inlet",
+                category: "Aadeshwar",
+                image: "automatic_inlet.jpg",
+                description: "Smart automatic inlet system for water control.",
+                features: "Efficient, easy to install, and long-lasting.",
+                table: [
+                    { size: "2 mtr", rate: "₹500", pcs: "10" },
+                ],
+            },
+        };
+
+        function showAllProducts() {
+            const productGrid = document.getElementById("productGrid");
+            productGrid.innerHTML = Object.keys(products)
+                .map(
+                    (key) => `
+                <div class="product-card" onclick="openModal('${key}')">
+                    <img src="${products[key].image}" alt="${products[key].title}">
+                    <div class="product-title">${products[key].title}</div>
+                </div>`
+                )
+                .join("");
+        }
+
+        function filterByCategory(category) {
+            const productGrid = document.getElementById("productGrid");
+            const filteredProducts = Object.keys(products).filter(
+                (key) => products[key].category === category
+            );
+
+            productGrid.innerHTML = filteredProducts
+                .map(
+                    (key) => `
+                <div class="product-card" onclick="openModal('${key}')">
+                    <img src="${products[key].image}" alt="${products[key].title}">
+                    <div class="product-title">${products[key].title}</div>
+                </div>`
+                )
+                .join("");
+        }
+
+        function searchProduct() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            const productGrid = document.getElementById("productGrid");
+            const filteredProducts = Object.keys(products).filter((key) =>
+                products[key].title.toLowerCase().includes(query)
+            );
+
+            if (filteredProducts.length > 0) {
+                productGrid.innerHTML = filteredProducts
+                    .map(
+                        (key) => `
+                    <div class="product-card" onclick="openModal('${key}')">
+                        <img src="${products[key].image}" alt="${products[key].title}">
+                        <div class="product-title">${products[key].title}</div>
+                    </div>`
+                    )
+                    .join("");
+            } else {
+                productGrid.innerHTML = "<p>No products found</p>";
             }
         }
 
-        function openModal(productId) {
-            const modal = document.getElementById('productModal');
-            const modalContent = document.getElementById('modalContent');
-            modalContent.innerHTML = '';
-            const productDetails = {
-                1: `
-                    <h2>Flexible Hose Light Details</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Weight (Gms)</th>
-                                <th>Size</th>
-                                <th>PCS</th>
-                                <th>Rate</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>52</td><td>32mm</td><td>300</td><td>8.32</td></tr>
-                            <tr><td>58</td><td>32mm</td><td>300</td><td>10.24</td></tr>
-                            <tr><td>70</td><td>32mm</td><td>300</td><td>10.09</td></tr>
-                            <tr><td>72</td><td>32mm</td><td>300</td><td>10.35</td></tr>
-                            <tr><td>76</td><td>32mm</td><td>300</td><td>10.75</td></tr>
-                        </tbody>
-                    </table>`,
-                2: `
-                    <h2>Washing Machine Outlet Details</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Size (Mtr)</th>
-                                <th>Weight (Gms)</th>
-                                <th>PCS</th>
-                                <th>Rate</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>1</td><td>100</td><td>150</td><td>24</td></tr>
-                            <tr><td>2</td><td>140</td><td>100</td><td>33</td></tr>
-                            <tr><td>3</td><td>200</td><td>80</td><td>44</td></tr>
-                            <tr><td>4</td><td>290</td><td>50</td><td>60</td></tr>
-                            <tr><td>5</td><td>350</td><td>40</td><td>72</td></tr>
-                        </tbody>
-                    </table>`,
-                4: `
-                    <h2>Washing Machine Inlet Details</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Size (Mtr)</th>
-                                <th>Weight (Gms)</th>
-                                <th>PCS</th>
-                                <th>Rate</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>1.5</td><td>50</td><td>300</td><td>17</td></tr>
-                            <tr><td>2</td><td>80</td><td>200</td><td>23</td></tr>
-                            <tr><td>3</td><td>100</td><td>150</td><td>27</td></tr>
-                            <tr><td>4</td><td>150</td><td>80</td><td>36</td></tr>
-                            <tr><td>5</td><td>200</td><td>75</td><td>49</td></tr>
-                        </tbody>
-                    </table>`
-            };
-            modalContent.innerHTML = productDetails[productId] || '<p>Product details not available.</p>';
-            modal.style.display = 'block';
-            modal.setAttribute('aria-hidden', 'false');
+        function openModal(productName) {
+            const product = products[productName];
+            document.getElementById("modalHeader").textContent = product.title;
+            document.getElementById("modalDescription").innerHTML = `
+                <p><strong>Description:</strong> ${product.description}</p>
+                <p><strong>Features:</strong> ${product.features}</p>`;
+            const tableBody = document.querySelector("#modalTable tbody");
+            tableBody.innerHTML = product.table
+                .map(
+                    (row) =>
+                        `<tr><td>${row.size}</td><td>${row.rate}</td><td>${row.pcs}</td></tr>`
+                )
+                .join("");
+            document.getElementById("productModal").style.display = "block";
         }
 
         function closeModal() {
-            const modal = document.getElementById('productModal');
-            modal.style.display = 'none';
-            modal.setAttribute('aria-hidden', 'true');
+            document.getElementById("productModal").style.display = "none";
         }
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('productModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
+        window.onload = showAllProducts;
     </script>
 </body>
 
