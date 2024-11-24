@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f9f9f9;
             color: #333;
         }
 
@@ -24,9 +24,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 20px;
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px 25px;
+            background-color: #007bff;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .navbar-left {
@@ -47,12 +48,13 @@
 
         .navbar-links a {
             text-decoration: none;
-            color: #333;
+            color: white;
             font-weight: 500;
+            transition: color 0.3s ease;
         }
 
         .navbar-links a:hover {
-            color: #007bff;
+            color: #ffd700;
         }
 
         .dropdown {
@@ -86,47 +88,23 @@
             background-color: #f4f4f4;
         }
 
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .search-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .search-bar input {
-            padding: 5px 10px;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            width: 200px;
-        }
-
-        .search-bar button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .search-bar button:hover {
-            background-color: #0056b3;
-        }
-
         /* Product Section */
         .product-section {
-            padding: 20px;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .product-section h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #007bff;
         }
 
         .product-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 25px;
             justify-content: center;
         }
 
@@ -136,20 +114,46 @@
             width: 220px;
             text-align: center;
             padding: 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             background: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
         }
 
         .product-card img {
             width: 100%;
             height: auto;
             margin-bottom: 10px;
+            border-radius: 5px;
             cursor: pointer;
         }
 
         .product-title {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .share-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .share-button img {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .share-button:hover img {
+            transform: scale(1.2);
         }
 
         /* Modal Styles */
@@ -168,26 +172,42 @@
         .modal-content {
             background-color: white;
             margin: 5% auto;
-            padding: 20px;
+            padding: 25px;
             border: 1px solid #888;
             width: 90%;
             max-width: 600px;
             border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .modal-header {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
-            margin-bottom: 10px;
+            color: #007bff;
+            margin-bottom: 15px;
         }
 
         .modal-description {
             margin-bottom: 20px;
+            color: #555;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 10px;
         }
 
         table,
@@ -200,10 +220,13 @@
         td {
             padding: 10px;
             text-align: left;
+            color: #333;
         }
 
         th {
-            background-color: #f4f4f4;
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
         }
 
         .close {
@@ -216,7 +239,7 @@
 
         .close:hover,
         .close:focus {
-            color: black;
+            color: #007bff;
             text-decoration: none;
             cursor: pointer;
         }
@@ -241,12 +264,6 @@
                 </div>
                 <a href="#">Home</a>
                 <a href="#">Contact</a>
-            </div>
-        </div>
-        <div class="navbar-right">
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Search Products">
-                <button onclick="searchProduct()">Search</button>
             </div>
         </div>
     </nav>
@@ -300,26 +317,26 @@
                     { size: "3m", rate: "₹35", pcs: "40" },
                 ],
             },
-            "Outlet Hose": {
-                title: "Outlet Hose",
+            "Outlet": {
+                title: "Outlet",
                 category: "VS",
                 image: "outlet.jpg",
-                description: "A lightweight and durable hose for everyday use.",
-                features: "Flexible, long-lasting, and easy to use.",
+                description: "A heavy-duty hose suitable for industrial use.",
+                features: "High strength, durable, and weather-resistant.",
                 table: [
-                    { size: "1m", rate: "₹10", pcs: "100" },
-                    { size: "2m", rate: "₹20", pcs: "80" },
+                    { size: "1m", rate: "₹15", pcs: "60" },
+                    { size: "3m", rate: "₹35", pcs: "40" },
                 ],
             },
-            "inlet Hose": {
-                title: "Inlet Hose",
+            "Inlet": {
+                title: "Inlet",
                 category: "VS",
                 image: "inlet.jpg",
-                description: "A lightweight and durable hose for everyday use.",
-                features: "Flexible, long-lasting, and easy to use.",
+                description: "A heavy-duty hose suitable for industrial use.",
+                features: "High strength, durable, and weather-resistant.",
                 table: [
-                    { size: "1m", rate: "₹10", pcs: "100" },
-                    { size: "2m", rate: "₹20", pcs: "80" },
+                    { size: "1m", rate: "₹15", pcs: "60" },
+                    { size: "3m", rate: "₹35", pcs: "40" },
                 ],
             },
             "PVC Connection Pipe": {
@@ -344,6 +361,28 @@
                     { size: "2m", rate: "₹60", pcs: "80" },
                 ],
             },
+            "PTMT Conncetion Pipe ": {
+                title: "PTMT Conncetion Pipe ",
+                category: "Aadeshwar",
+                image: "PTMT_connection.jpg",
+                description: "Strong PVC pipe for reliable connections.",
+                features: "Durable, lightweight, and affordable.",
+                table: [
+                    { size: "1m", rate: "₹30", pcs: "100" },
+                    { size: "2m", rate: "₹60", pcs: "80" },
+                ],
+            },
+            "PTMT Shower Tube ": {
+                title: "PTMT Shower Tube ",
+                category: "Aadeshwar",
+                image: "ptmt_shower.jpeg",
+                description: "Strong PVC pipe for reliable connections.",
+                features: "Durable, lightweight, and affordable.",
+                table: [
+                    { size: "1m", rate: "₹30", pcs: "100" },
+                    { size: "2m", rate: "₹60", pcs: "80" },
+                ],
+            },
             "Automatic Inlet": {
                 title: "Automatic Inlet",
                 category: "Aadeshwar",
@@ -354,6 +393,8 @@
                     { size: "2 mtr", rate: "₹500", pcs: "10" },
                 ],
             },
+
+
         };
 
         function showAllProducts() {
@@ -361,51 +402,23 @@
             productGrid.innerHTML = Object.keys(products)
                 .map(
                     (key) => `
-                <div class="product-card" onclick="openModal('${key}')">
-                    <img src="${products[key].image}" alt="${products[key].title}">
-                    <div class="product-title">${products[key].title}</div>
-                </div>`
-                )
-                .join("");
-        }
-
-        function filterByCategory(category) {
-            const productGrid = document.getElementById("productGrid");
-            const filteredProducts = Object.keys(products).filter(
-                (key) => products[key].category === category
-            );
-
-            productGrid.innerHTML = filteredProducts
-                .map(
-                    (key) => `
-                <div class="product-card" onclick="openModal('${key}')">
-                    <img src="${products[key].image}" alt="${products[key].title}">
-                    <div class="product-title">${products[key].title}</div>
-                </div>`
-                )
-                .join("");
-        }
-
-        function searchProduct() {
-            const query = document.getElementById("searchInput").value.toLowerCase();
-            const productGrid = document.getElementById("productGrid");
-            const filteredProducts = Object.keys(products).filter((key) =>
-                products[key].title.toLowerCase().includes(query)
-            );
-
-            if (filteredProducts.length > 0) {
-                productGrid.innerHTML = filteredProducts
-                    .map(
-                        (key) => `
-                    <div class="product-card" onclick="openModal('${key}')">
-                        <img src="${products[key].image}" alt="${products[key].title}">
+                    <div class="product-card">
+                        <img src="${products[key].image}" alt="${products[key].title}" onclick="openModal('${key}')">
                         <div class="product-title">${products[key].title}</div>
+                        <button class="share-button" onclick="shareOnWhatsApp('${key}')">
+                            <img src="whatsapp-icon.png" alt="Share">
+                        </button>
                     </div>`
-                    )
-                    .join("");
-            } else {
-                productGrid.innerHTML = "<p>No products found</p>";
-            }
+                )
+                .join("");
+        }
+
+        function shareOnWhatsApp(productKey) {
+            const product = products[productKey];
+            const message = `Check out this product:\n*${product.title}*\n${product.description}\n\nFeatures: ${product.features}`;
+            const phoneNumber = "8320197530";
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, "_blank");
         }
 
         function openModal(productName) {
